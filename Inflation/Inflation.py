@@ -94,25 +94,28 @@ while (length>=0):
 years.append(2024)
 
 # Plotting the line
-plt.plot(years, inflation_result_list,color="darkblue")
+fig, ax = plt.subplots()
+
+ax.plot(years, inflation_result_list,color="darkblue")
 
 # Plotting the data points
-plt.scatter(years, inflation_result_list, color='darkgreen')
+ax.scatter(years, inflation_result_list, color='darkgreen')
 
 # Adding labels and title
-plt.xlabel('Inflation in Eurozone [Euro]')
-plt.ylabel('Year')
-plt.title('Annual Inflation Impact on 1Euro Since 2002')
+ax.set_xlabel('Inflation in Eurozone [Euro]')
+ax.set_ylabel('Year')
+ax.set_title('Annual Inflation Impact on 1Euro Since 2002')
 
 # Adding a legend
-plt.legend()
+ax.legend()
 
-plt.grid(True)  # This adds a grid to the plot
+ax.grid(True)  # This adds a grid to the plot
 
 # Set the desired number of ticks
 desired_ticks = 10
-plt.xticks(range(min(years), max(years) + 1))
+ax.set_xticks(range(min(years), max(years) + 1))
 
-plt.locator_params(axis='y', nbins=desired_ticks)
-# Display the plot
+ax.locator_params(axis='y', nbins=desired_ticks)
+
+fig.savefig('devaluation_euro.svg',format='svg')
 plt.show()
