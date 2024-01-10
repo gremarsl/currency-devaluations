@@ -102,18 +102,27 @@ ax.plot(years, inflation_result_list,color="darkblue")
 ax.scatter(years, inflation_result_list, color='darkgreen')
 
 # Adding labels and title
-ax.set_xlabel('Inflation in Eurozone [Euro]')
-ax.set_ylabel('Year')
-ax.set_title('Annual Inflation Impact on 1Euro Since 2002')
+ax.set_xlabel('Year')
+ax.set_ylabel('Inflation in Eurozone [Euro]')
+
+ax.set_title('Devaluation Impact on 1 Euro Since 2002')
 
 # Adding a legend
 ax.legend()
 
 ax.grid(True)  # This adds a grid to the plot
 
+# Reduce the font size of x-axis tick labels
+ax.tick_params(axis='x', labelsize=10)  # Adjust the font size as needed
+
+# Rotate x-axis tick labels vertically
+
 # Set the desired number of ticks
 desired_ticks = 10
-ax.set_xticks(range(min(years), max(years) + 1))
+ax.set_xticks(range(min(years), max(years) + 1),rotation=90)
+
+
+ax.set_xticklabels(years,rotation=90, ha='right')
 
 ax.locator_params(axis='y', nbins=desired_ticks)
 
