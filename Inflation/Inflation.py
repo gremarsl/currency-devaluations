@@ -4,7 +4,7 @@ import pandas as pd
 
 # USER CONFIG 
 # Base value
-BASE = 1
+BASE = 1000
 
 # Specify the path to your CSV file
 csv_file_path = 'inflation_data.csv'
