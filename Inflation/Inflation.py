@@ -1,57 +1,42 @@
 import matplotlib.pyplot as plt
+import csv
+import pandas as pd
 
-years = [2002,
-        2003,
-        2004,
-        2005,
-        2006,
-        2007,
-        2008,
-        2009,
-        2010,
-        2011,
-        2012,
-        2013,
-        2014,
-        2015,
-        2016,
-        2017,
-        2018,
-        2019,
-        2020,
-        2021,
-        2022,
-        2023,
-        ]
+# Specify the path to your CSV file
+csv_file_path = 'inflation_data.csv'
+global_csv_reader = None
+
+base = 1000
+
+devaluation_ger = []
+
+def get_csv_column_data(column_name:str):
+    global global_csv_reader
+    column_values = []
+    if global_csv_reader is not None:
+        for row in global_csv_reader:
+            # Process the data as needed
+            column_values.append(row[column_name])
+    else:
+        print("csv_reader is not initialized")
+
+    return column_values
 
 
-inflation_rate_germany = [1.4,#2002
-                          1.0,#2003
-                          1.6,#2004
-                          1.6,#2005
-                          1.6,#2006
-                          2.3,#2007
-                          2.6,#2008
-                          0.3,#2009
-                          1.0,#2010
-                          2.2,#2011
-                          1.9,#2012
-                          1.5,#2013
-                          1.0,#2014
-                          0.5,#2015
-                          0.5,#2016
-                          1.5,#2017
-                          1.8,#2018
-                          1.4,#2019
-                          0.5,#2020
-                          3.1,#2021
-                          6.9,#2022
-                          5.9,#2023
-                          ]
+def read_csv_data():
+    
+    global global_csv_reader
 
-base = 1
+    column_values = []
 
-inflation_result_list = []
+    # Open the CSV file
+    with open(csv_file_path, 'r') as file:
+        # Create a CSV DictReader object
+        global_csv_reader = csv.DictReader(file)
+
+        for row in global_csv_reader:
+            # Process the data as needed
+            column_values.append(row["inflation rate germany"])
 
 def calc(base,rate_list : list):
 
@@ -63,49 +48,110 @@ def calc(base,rate_list : list):
 def devide_list(divisor):
     return divisor / 100
 
-rate_list = inflation_rate_germany
-print(rate_list)
 
-rate_list = list(map(devide_list,rate_list))
-inflation_rate_list =  [round(x,3) for x in rate_list] 
-retVal = calc(base,rate_list)
+data = pd.read_csv('inflation_data.csv')
+years = data["year"]
+
+rate_ger = data["inflation rate germany"]
+rate_us = data["inflation rate us"]
+rate_swiss = data["inflation rate switzerland"]
+
+
+# Calculate elegant the devaluation for Germany
+rate_ger = list(map(devide_list,rate_ger))
+inflation_rate_ger =  [round(x,3) for x in rate_ger] 
+retVal = calc(base,rate_ger)
+
+print(retVal)
+print("####")
+
+# Calculate elegant the devaluation for US
+rate_us = list(map(devide_list,rate_us))
+inflation_rate_us =  [round(x,3) for x in rate_us] 
+retVal = calc(base,rate_us)
+
+print(retVal)
+print("####")
+
+# Calculate elegant the devaluation for Swiss
+rate_swiss = list(map(devide_list,rate_swiss))
+inflation_rate_swiss =  [round(x,3) for x in rate_swiss] 
+retVal = calc(base,rate_swiss)
 
 print(retVal)
 print("####")
 
 #Create a list for rate_list year instead of one final value which was done with calc:
-length = len(inflation_rate_list)
-inflation_result_list = []
+length = len(inflation_rate_ger)
+devaluation_ger = []
 
 i = 0
 while (length>=0):
     
     if length ==0:
-        x_list = inflation_rate_list
+        x_list = inflation_rate_ger
     else:
-        x_list = inflation_rate_list[:(-length)]
+        x_list = inflation_rate_ger[:(-length)]
     retVal = calc(base,x_list)
-    inflation_result_list.append(retVal)
+    devaluation_ger.append(retVal)
     length -=1
-    print(i)
+    i+=1
+
+#US 
+#Create a list for rate_list year instead of one final value which was done with calc:
+length = len(inflation_rate_us)
+devaluation_us = []
+
+i = 0
+while (length>=0):
+    
+    if length ==0:
+        x_list = inflation_rate_us
+    else:
+        x_list = inflation_rate_us[:(-length)]
+    retVal = calc(base,x_list)
+    devaluation_us.append(retVal)
+    length -=1
+    i+=1
+
+
+#Swiss
+#Create a list for rate_list year instead of one final value which was done with calc:
+length = len(inflation_rate_swiss)
+devaluation_swiss = []
+
+i = 0
+while (length>=0):
+    
+    if length ==0:
+        x_list = inflation_rate_swiss
+    else:
+        x_list = inflation_rate_swiss[:(-length)]
+    retVal = calc(base,x_list)
+    devaluation_swiss.append(retVal)
+    length -=1
     i+=1
 
 # Appending last element
-years.append(2024)
+years = years.append(pd.Series([2024]))
 
 # Plotting the line
 fig, ax = plt.subplots()
 
-ax.plot(years, inflation_result_list,color="darkblue")
+ax.plot(years, devaluation_ger,color="yellow",label="Euro Ger)")
+ax.plot(years, devaluation_us,color="darkblue",label="USD")
+ax.plot(years, devaluation_swiss,color="red",label="Swiss franc")
 
 # Plotting the data points
-ax.scatter(years, inflation_result_list, color='darkgreen')
+ax.scatter(years, devaluation_ger, color='yellow')
+ax.scatter(years, devaluation_us, color='darkblue')
+ax.scatter(years, devaluation_swiss, color='red')
 
 # Adding labels and title
 ax.set_xlabel('Year')
-ax.set_ylabel('Inflation in Eurozone [Euro]')
+ax.set_ylabel('Inflation in Eurozone [Euro] / US [USDollar]')
 
-ax.set_title('Devaluation Impact on 1 Euro Since 2002')
+ax.set_title('Devaluation Impact on 1 Euro / 1 USD Since 2002')
 
 # Adding a legend
 ax.legend()
