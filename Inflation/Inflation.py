@@ -76,13 +76,13 @@ years = years.append(pd.Series([2024]))
 # Plotting the line
 fig, ax = plt.subplots()
 
-ax.plot(years, devaluation_ger,color="yellow",label="Euro Ger)")
-ax.plot(years, devaluation_us,color="darkblue",label="USD")
+ax.plot(years, devaluation_ger,color="darkblue",label="Euro Ger)")
+ax.plot(years, devaluation_us,color="darkgreen",label="USD")
 ax.plot(years, devaluation_swiss,color="red",label="Swiss franc")
 
 # Plotting the data points
-ax.scatter(years, devaluation_ger, color='yellow')
-ax.scatter(years, devaluation_us, color='darkblue')
+ax.scatter(years, devaluation_ger, color='darkblue')
+ax.scatter(years, devaluation_us, color='darkgreen')
 ax.scatter(years, devaluation_swiss, color='red')
 
 # Adding labels and title
@@ -128,13 +128,13 @@ deval_swiss_perc = list(map(lambda x: 100*BASE/x,devaluation_swiss))
 # Plotting the line
 fig, ax = plt.subplots()
 
-ax.plot(years, deval_ger_perc,color="yellow",label="Euro Ger)")
-ax.plot(years, deval_us_perc,color="darkblue",label="USD")
+ax.plot(years, deval_ger_perc,color="darkblue",label="Euro Ger)")
+ax.plot(years, deval_us_perc,color="darkgreen",label="USD")
 ax.plot(years, deval_swiss_perc,color="red",label="Swiss franc")
 
 # Plotting the data points
-ax.scatter(years, deval_ger_perc, color='yellow')
-ax.scatter(years, deval_us_perc, color='darkblue')
+ax.scatter(years, deval_ger_perc, color='darkblue')
+ax.scatter(years, deval_us_perc, color='darkgreen')
 ax.scatter(years, deval_swiss_perc, color='red')
 
 # Adding labels and title
@@ -181,13 +181,13 @@ deval_swiss = list(map(lambda x: BASE*BASE/x,devaluation_swiss))
 # Plotting the line
 fig, ax = plt.subplots()
 
-ax.plot(years, deval_ger,color="yellow",label="Euro Ger)")
-ax.plot(years, deval_us,color="darkblue",label="USD")
+ax.plot(years, deval_ger,color="darkblue",label="Euro Ger)")
+ax.plot(years, deval_us,color="darkgreen",label="USD")
 ax.plot(years, deval_swiss,color="red",label="Swiss franc")
 
 # Plotting the data points
-ax.scatter(years, deval_ger, color='yellow')
-ax.scatter(years, deval_us, color='darkblue')
+ax.scatter(years, deval_ger, color='darkblue')
+ax.scatter(years, deval_us, color='darkgreen')
 ax.scatter(years, deval_swiss, color='red')
 
 # Adding labels and title
