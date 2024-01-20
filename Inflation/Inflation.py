@@ -152,9 +152,9 @@ ax.scatter(years, devaluation_swiss, color='red')
 
 # Adding labels and title
 ax.set_xlabel('Year')
-ax.set_ylabel('Inflation in Eurozone [Euro] / US [USDollar]')
+ax.set_ylabel('€ / $ / SF')
 
-ax.set_title('Devaluation Impact on 1 Euro / 1 USD Since 2002')
+ax.set_title('Purchasing power since 2002')
 
 # Adding a legend
 ax.legend()
@@ -206,7 +206,7 @@ ax.scatter(years, deval_swiss_perc, color='red')
 ax.set_xlabel('Year')
 ax.set_ylabel('%')
 
-ax.set_title('Devaluation Impact since 2002')
+ax.set_title('Relative devaluation since 2002')
 
 # Adding a legend
 ax.legend()
@@ -257,7 +257,7 @@ ax.scatter(years, deval_swiss, color='red')
 ax.set_xlabel('Year')
 ax.set_ylabel('€ / $ / SF')
 
-ax.set_title('Devaluation Impact since 2002')
+ax.set_title('Absolute devaluation since 2002')
 
 # Adding a legend
 ax.legend()
