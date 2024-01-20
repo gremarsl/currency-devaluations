@@ -1,3 +1,4 @@
+from ast import Lambda
 import matplotlib.pyplot as plt
 import csv
 import pandas as pd
@@ -114,6 +115,8 @@ while (length>=0):
     length -=1
     i+=1
 
+print(devaluation_us)
+
 
 #Swiss
 #Create a list for rate_list year instead of one final value which was done with calc:
@@ -173,4 +176,107 @@ ax.set_xticklabels(years,rotation=90, ha='right')
 ax.locator_params(axis='y', nbins=desired_ticks)
 
 fig.savefig('devaluation_euro.svg',format='svg')
+plt.show()
+
+
+
+#### Buying power of basis 
+# Lets say 2002 is 100% - how is it after 22 years
+
+# Calculate elegant the devaluation for Swiss 
+# multiply with 100 to convert in %
+deval_ger_perc = list(map(lambda x: 100*base/x,devaluation_ger)) 
+deval_us_perc  = list(map(lambda x: 100*base/x,devaluation_us))
+deval_swiss_perc = list(map(lambda x: 100*base/x,devaluation_swiss))
+
+
+# Plotting the line
+fig, ax = plt.subplots()
+
+ax.plot(years, deval_ger_perc,color="yellow",label="Euro Ger)")
+ax.plot(years, deval_us_perc,color="darkblue",label="USD")
+ax.plot(years, deval_swiss_perc,color="red",label="Swiss franc")
+
+# Plotting the data points
+ax.scatter(years, deval_ger_perc, color='yellow')
+ax.scatter(years, deval_us_perc, color='darkblue')
+ax.scatter(years, deval_swiss_perc, color='red')
+
+# Adding labels and title
+ax.set_xlabel('Year')
+ax.set_ylabel('%')
+
+ax.set_title('Devaluation Impact since 2002')
+
+# Adding a legend
+ax.legend()
+
+ax.grid(True)  # This adds a grid to the plot
+
+# Reduce the font size of x-axis tick labels
+ax.tick_params(axis='x', labelsize=10)  # Adjust the font size as needed
+
+# Rotate x-axis tick labels vertically
+
+# Set the desired number of ticks
+desired_ticks = 10
+ax.set_xticks(range(min(years), max(years) + 1),rotation=90)
+
+
+ax.set_xticklabels(years,rotation=90, ha='right')
+
+ax.locator_params(axis='y', nbins=desired_ticks)
+
+fig.savefig('devaluation_relative.svg',format='svg')
+plt.show()
+
+
+
+#### Buying power of basis 
+# What is the equivalent value in year x to 1000€ in 2002
+
+# Calculate elegant the devaluation for Swiss 
+deval_ger = list(map(lambda x: base*base/x,devaluation_ger)) 
+deval_us  = list(map(lambda x: base*base/x,devaluation_us))
+deval_swiss = list(map(lambda x: base*base/x,devaluation_swiss))
+
+
+# Plotting the line
+fig, ax = plt.subplots()
+
+ax.plot(years, deval_ger,color="yellow",label="Euro Ger)")
+ax.plot(years, deval_us,color="darkblue",label="USD")
+ax.plot(years, deval_swiss,color="red",label="Swiss franc")
+
+# Plotting the data points
+ax.scatter(years, deval_ger, color='yellow')
+ax.scatter(years, deval_us, color='darkblue')
+ax.scatter(years, deval_swiss, color='red')
+
+# Adding labels and title
+ax.set_xlabel('Year')
+ax.set_ylabel('%')
+
+ax.set_title('Devaluation Impact since 2002')
+
+# Adding a legend
+ax.legend()
+
+ax.grid(True)  # This adds a grid to the plot
+
+# Reduce the font size of x-axis tick labels
+ax.tick_params(axis='x', labelsize=10)  # Adjust the font size as needed
+
+# Rotate x-axis tick labels vertically
+
+# Set the desired number of ticks
+desired_ticks = 10
+ax.set_xticks(range(min(years), max(years) + 1),rotation=90)
+
+
+ax.set_xticklabels(years,rotation=90, ha='right')
+
+ax.locator_params(axis='y', nbins=desired_ticks)
+
+fig.savefig('devaluation_absolute.svg',format='svg')
 plt.show()
