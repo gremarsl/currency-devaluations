@@ -7,7 +7,7 @@ import pandas as pd
 csv_file_path = 'inflation_data.csv'
 global_csv_reader = None
 
-base = 100000
+base = 1
 
 devaluation_ger = []
 
@@ -115,8 +115,6 @@ while (length>=0):
     length -=1
     i+=1
 
-print(devaluation_us)
-
 
 #Swiss
 #Create a list for rate_list year instead of one final value which was done with calc:
@@ -152,7 +150,7 @@ ax.scatter(years, devaluation_swiss, color='red')
 
 # Adding labels and title
 ax.set_xlabel('Year')
-ax.set_ylabel('€ / $ / SF')
+ax.set_ylabel('[Euro],[USD],[SF]')
 
 ax.set_title('Purchasing power since 2002')
 
@@ -255,7 +253,7 @@ ax.scatter(years, deval_swiss, color='red')
 
 # Adding labels and title
 ax.set_xlabel('Year')
-ax.set_ylabel('€ / $ / SF')
+ax.set_ylabel('[Euro],[USD],[SF]')
 
 ax.set_title('Absolute devaluation since 2002')
 
