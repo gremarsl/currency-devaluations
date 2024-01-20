@@ -48,13 +48,10 @@ rate_ger = list(map(devide_list,rate_ger))
 inflation_rate_ger =  [round(x,3) for x in rate_ger] 
 result_ger = calc(BASE,rate_ger)
 
-
-
 # Calculate elegant the devaluation for US
 rate_us = list(map(devide_list,rate_us))
 inflation_rate_us =  [round(x,3) for x in rate_us] 
 result_us = calc(BASE,rate_us)
-
 
 # Calculate elegant the devaluation for Swiss
 rate_swiss = list(map(devide_list,rate_swiss))
@@ -68,9 +65,13 @@ devaluation_ger = calculate_purchasing_power(inflation_rate_ger)
 devaluation_us = calculate_purchasing_power(inflation_rate_us)
 devaluation_swiss = calculate_purchasing_power(inflation_rate_swiss)
 
-
 # Appending last element
 years = years.append(pd.Series([2024]))
+
+
+#######################################################################
+# PLOT 1
+#######################################################################
 
 # Plotting the line
 fig, ax = plt.subplots()
@@ -112,15 +113,17 @@ ax.locator_params(axis='y', nbins=desired_ticks)
 fig.savefig('devaluation_euro.svg',format='svg')
 plt.show()
 
-#### Buying power of basis 
+#######################################################################
+# PLOT 2
+# Buying power of basis 
 # Lets say 2002 is 100% - how is it after 22 years
+#######################################################################
 
-# Calculate elegant the devaluation for Swiss 
+# Calculate the devaluation for Swiss 
 # multiply with 100 to convert in %
 deval_ger_perc = list(map(lambda x: 100*BASE/x,devaluation_ger)) 
 deval_us_perc  = list(map(lambda x: 100*BASE/x,devaluation_us))
 deval_swiss_perc = list(map(lambda x: 100*BASE/x,devaluation_swiss))
-
 
 # Plotting the line
 fig, ax = plt.subplots()
@@ -163,9 +166,11 @@ fig.savefig('devaluation_relative.svg',format='svg')
 plt.show()
 
 
-
-#### Buying power of basis 
+#######################################################################
+# PLOT 3
+# Buying power of basis 
 # What is the equivalent value in year x to 1000€ in 2002
+#######################################################################
 
 # Calculate elegant the devaluation for Swiss 
 deval_ger = list(map(lambda x: BASE*BASE/x,devaluation_ger)) 
