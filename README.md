@@ -1,6 +1,6 @@
 # Inflation
 
-This small python script plots the devaluation of euro in germany from 01.2002 - 01.2024.
+This small python script plots the devaluation of euro in germany, the US dollar and the swiss franc from 01.2002 - 01.2024.
 
 How to read this plot: \
 1000€ in 2002 is equivalent in purchasing power to about ~ 1500€ today.
