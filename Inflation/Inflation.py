@@ -99,12 +99,9 @@ ax.grid(True)  # This adds a grid to the plot
 # Reduce the font size of x-axis tick labels
 ax.tick_params(axis='x', labelsize=10)  # Adjust the font size as needed
 
-# Rotate x-axis tick labels vertically
-
 # Set the desired number of ticks
 desired_ticks = 10
 ax.set_xticks(range(min(years), max(years) + 1),rotation=90)
-
 
 ax.set_xticklabels(years,rotation=90, ha='right')
 
@@ -151,20 +148,14 @@ ax.grid(True)  # This adds a grid to the plot
 # Reduce the font size of x-axis tick labels
 ax.tick_params(axis='x', labelsize=10)  # Adjust the font size as needed
 
-# Rotate x-axis tick labels vertically
-
 # Set the desired number of ticks
 desired_ticks = 10
 ax.set_xticks(range(min(years), max(years) + 1),rotation=90)
-
-
 ax.set_xticklabels(years,rotation=90, ha='right')
-
 ax.locator_params(axis='y', nbins=desired_ticks)
 
 fig.savefig('devaluation_relative.svg',format='svg')
 plt.show()
-
 
 #######################################################################
 # PLOT 3
@@ -176,7 +167,6 @@ plt.show()
 deval_ger = list(map(lambda x: BASE*BASE/x,devaluation_ger)) 
 deval_us  = list(map(lambda x: BASE*BASE/x,devaluation_us))
 deval_swiss = list(map(lambda x: BASE*BASE/x,devaluation_swiss))
-
 
 # Plotting the line
 fig, ax = plt.subplots()
@@ -204,15 +194,11 @@ ax.grid(True)  # This adds a grid to the plot
 # Reduce the font size of x-axis tick labels
 ax.tick_params(axis='x', labelsize=10)  # Adjust the font size as needed
 
-# Rotate x-axis tick labels vertically
-
 # Set the desired number of ticks
 desired_ticks = 10
 ax.set_xticks(range(min(years), max(years) + 1),rotation=90)
 
-
 ax.set_xticklabels(years,rotation=90, ha='right')
-
 ax.locator_params(axis='y', nbins=desired_ticks)
 
 fig.savefig('devaluation_absolute.svg',format='svg')
