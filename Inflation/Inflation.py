@@ -7,7 +7,7 @@ import pandas as pd
 csv_file_path = 'inflation_data.csv'
 global_csv_reader = None
 
-base = 1000
+base = 100000
 
 devaluation_ger = []
 
@@ -255,7 +255,7 @@ ax.scatter(years, deval_swiss, color='red')
 
 # Adding labels and title
 ax.set_xlabel('Year')
-ax.set_ylabel('%')
+ax.set_ylabel('€ / $ / SF')
 
 ax.set_title('Devaluation Impact since 2002')
 
