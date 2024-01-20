@@ -6,21 +6,21 @@ How to read this plot: \
 1000€ in 2002 is equivalent in purchasing power to about ~ 1500€ today. \
 If you´ve earned $1000 in 2002, you would need to earn ~ 1500€ 2024 in order to "compensate" inflation.
 
-<br>
-![Devaluation](./Inflation/devaluation_euro.svg)
-<br>
+
+![SVG Image](./Inflation/devaluation_euro.svg)
+
 
 How to read this plot: \
-1000€ gespart im Jahr 2002 haben nur noch eine Kaufkraft von ~650€ im Jahr 2024.
-<br>
-![Devaluation Absolute](./Inflation/devaluation_absolute.svg)
-<br>
+1000 saved in 2002 will only have a purchasing power of ~€650 in 2024.
+
+![SVG Image](./Inflation/devaluation_absolute.svg)
+
 
 How to read this plot: \
 
-<br>
+
 ![SVG Image](./Inflation/devaluation_relative.svg)
-<br>
+
 
 
 
