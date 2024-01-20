@@ -1,43 +1,13 @@
 from ast import Lambda
 import matplotlib.pyplot as plt
-import csv
 import pandas as pd
+
+# USER CONFIG 
+# Base value
+BASE = 1
 
 # Specify the path to your CSV file
 csv_file_path = 'inflation_data.csv'
-global_csv_reader = None
-
-base = 1
-
-devaluation_ger = []
-
-def get_csv_column_data(column_name:str):
-    global global_csv_reader
-    column_values = []
-    if global_csv_reader is not None:
-        for row in global_csv_reader:
-            # Process the data as needed
-            column_values.append(row[column_name])
-    else:
-        print("csv_reader is not initialized")
-
-    return column_values
-
-
-def read_csv_data():
-    
-    global global_csv_reader
-
-    column_values = []
-
-    # Open the CSV file
-    with open(csv_file_path, 'r') as file:
-        # Create a CSV DictReader object
-        global_csv_reader = csv.DictReader(file)
-
-        for row in global_csv_reader:
-            # Process the data as needed
-            column_values.append(row["inflation rate germany"])
 
 def calc(base,rate_list : list):
 
@@ -45,10 +15,26 @@ def calc(base,rate_list : list):
         return base
     return (1+rate_list.pop())*calc(base,rate_list)
 
-
 def devide_list(divisor):
     return divisor / 100
 
+def calculate_purchasing_power(inflation_rate_list):
+    length = len(inflation_rate_list)
+    devaluation = []
+
+    i = 0
+    while (length>=0):
+    
+        if length ==0:
+            x_list = inflation_rate_list
+        else:
+            x_list = inflation_rate_list[:(-length)]
+        retVal = calc(BASE,x_list)
+        devaluation.append(retVal)
+        length -=1
+        i+=1
+
+    return devaluation
 
 data = pd.read_csv('inflation_data.csv')
 years = data["year"]
@@ -57,81 +43,31 @@ rate_ger = data["inflation rate germany"]
 rate_us = data["inflation rate us"]
 rate_swiss = data["inflation rate switzerland"]
 
-
 # Calculate elegant the devaluation for Germany
 rate_ger = list(map(devide_list,rate_ger))
 inflation_rate_ger =  [round(x,3) for x in rate_ger] 
-retVal = calc(base,rate_ger)
+result_ger = calc(BASE,rate_ger)
 
-print(retVal)
-print("####")
+
 
 # Calculate elegant the devaluation for US
 rate_us = list(map(devide_list,rate_us))
 inflation_rate_us =  [round(x,3) for x in rate_us] 
-retVal = calc(base,rate_us)
+result_us = calc(BASE,rate_us)
 
-print(retVal)
-print("####")
 
 # Calculate elegant the devaluation for Swiss
 rate_swiss = list(map(devide_list,rate_swiss))
 inflation_rate_swiss =  [round(x,3) for x in rate_swiss] 
-retVal = calc(base,rate_swiss)
+result_swiss = calc(BASE,rate_swiss)
 
-print(retVal)
-print("####")
+print(f"CALCULATED RESULT: Germany: {result_ger}, US: {result_us}, Switzerland: {result_swiss}")
 
 #Create a list for rate_list year instead of one final value which was done with calc:
-length = len(inflation_rate_ger)
-devaluation_ger = []
+devaluation_ger = calculate_purchasing_power(inflation_rate_ger)
+devaluation_us = calculate_purchasing_power(inflation_rate_us)
+devaluation_swiss = calculate_purchasing_power(inflation_rate_swiss)
 
-i = 0
-while (length>=0):
-    
-    if length ==0:
-        x_list = inflation_rate_ger
-    else:
-        x_list = inflation_rate_ger[:(-length)]
-    retVal = calc(base,x_list)
-    devaluation_ger.append(retVal)
-    length -=1
-    i+=1
-
-#US 
-#Create a list for rate_list year instead of one final value which was done with calc:
-length = len(inflation_rate_us)
-devaluation_us = []
-
-i = 0
-while (length>=0):
-    
-    if length ==0:
-        x_list = inflation_rate_us
-    else:
-        x_list = inflation_rate_us[:(-length)]
-    retVal = calc(base,x_list)
-    devaluation_us.append(retVal)
-    length -=1
-    i+=1
-
-
-#Swiss
-#Create a list for rate_list year instead of one final value which was done with calc:
-length = len(inflation_rate_swiss)
-devaluation_swiss = []
-
-i = 0
-while (length>=0):
-    
-    if length ==0:
-        x_list = inflation_rate_swiss
-    else:
-        x_list = inflation_rate_swiss[:(-length)]
-    retVal = calc(base,x_list)
-    devaluation_swiss.append(retVal)
-    length -=1
-    i+=1
 
 # Appending last element
 years = years.append(pd.Series([2024]))
@@ -176,16 +112,14 @@ ax.locator_params(axis='y', nbins=desired_ticks)
 fig.savefig('devaluation_euro.svg',format='svg')
 plt.show()
 
-
-
 #### Buying power of basis 
 # Lets say 2002 is 100% - how is it after 22 years
 
 # Calculate elegant the devaluation for Swiss 
 # multiply with 100 to convert in %
-deval_ger_perc = list(map(lambda x: 100*base/x,devaluation_ger)) 
-deval_us_perc  = list(map(lambda x: 100*base/x,devaluation_us))
-deval_swiss_perc = list(map(lambda x: 100*base/x,devaluation_swiss))
+deval_ger_perc = list(map(lambda x: 100*BASE/x,devaluation_ger)) 
+deval_us_perc  = list(map(lambda x: 100*BASE/x,devaluation_us))
+deval_swiss_perc = list(map(lambda x: 100*BASE/x,devaluation_swiss))
 
 
 # Plotting the line
@@ -234,9 +168,9 @@ plt.show()
 # What is the equivalent value in year x to 1000€ in 2002
 
 # Calculate elegant the devaluation for Swiss 
-deval_ger = list(map(lambda x: base*base/x,devaluation_ger)) 
-deval_us  = list(map(lambda x: base*base/x,devaluation_us))
-deval_swiss = list(map(lambda x: base*base/x,devaluation_swiss))
+deval_ger = list(map(lambda x: BASE*BASE/x,devaluation_ger)) 
+deval_us  = list(map(lambda x: BASE*BASE/x,devaluation_us))
+deval_swiss = list(map(lambda x: BASE*BASE/x,devaluation_swiss))
 
 
 # Plotting the line
